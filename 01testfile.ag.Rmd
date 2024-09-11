@@ -1,0 +1,43 @@
+---
+title: "Setup"
+output: html_document
+date: "2024-09-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r Load Data and Set WD}
+setwd("C:/Users/bew2229/OneDrive - Northwestern University/Desktop") 
+load("LGBTQ_data.RData")
+
+data<- LGBTQ_data 
+```
+
+```{r Load Packages}
+library(tidyverse)
+library(lubridate)
+library(zipcodeR)
+library(flextable)
+library(summarytools)
+library(haven)
+```
+
+###Demographics###
+```{r SAAB: Freq}
+saab<- data %>% 
+  select(b_dem_sex,b_dem_sex_3_TEXT) 
+
+freq_sex <- saab %>%
+  count(b_dem_sex) %>%
+  mutate(percent = (n / sum(n))*100)
+# Print the table
+print.data.frame(freq_sex)
+
+#  b_dem_sex   n    percent
+#1         1 704 87.1287129 -- Female
+#2         2  93 11.5099010 -- Male
+#3         3   3  0.371287 -- Intersex
+#4   
